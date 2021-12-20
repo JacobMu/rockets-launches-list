@@ -1,0 +1,25 @@
+{
+  "app": {
+    "success": "\uD83D\uDFE2",
+    "fail": "\uD83D\uDD34",
+    "list": {
+      "column": {
+        "missionName": "Mission name",
+        "rocketName": "Rocket name",
+        "launchDate": "Launch date",
+        "success": "Mission success"
+      },
+      "sideBar": {
+        "title": "Choose columns to show"
+      }
+    },
+    "commandBar": {
+      "name": "Amazing Spacex rockets table"
+    },
+    "language": {
+      "changeLanguage": "Change language",
+      "skLang": "SK",
+      "enLang": "EN"
+    }
+  }
+}
