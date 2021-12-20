@@ -4,9 +4,7 @@
   "description": "simple spacex rockets launches table",
   "main": "app.jsx",
   "scripts": {
-    "start": "vite",
-    "build": "node --trace-warnings esbuild.config.js",
-    "test": "test"
+    "start": "vite"
   },
   "keywords": [
     "spacex",
