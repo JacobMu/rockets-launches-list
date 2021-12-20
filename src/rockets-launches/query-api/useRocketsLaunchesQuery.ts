@@ -22,12 +22,16 @@ interface HookResult {
 const DEFAULT_OFFSET = 20;
 
 export const useRocketsLaunchesQuery = (): HookResult => {
-	const { error, data, isFetching, setOffset } =
-		useCreateApiQuery<RocketsLaunches>({
-			query: ROCKETS_LAUNCHES_QUERY,
-			requestPolicy: "cache-first",
-			variables: { limit: 20 },
-		});
+	const {
+		error,
+		data: { launchesPast },
+		isFetching,
+		setOffset,
+	} = useCreateApiQuery<RocketsLaunches>({
+		query: ROCKETS_LAUNCHES_QUERY,
+		requestPolicy: "cache-first",
+		variables: { limit: 20 },
+	});
 	const [hasMoreToFetch, setHasMoreToFetch] = useState(true);
 	const [isFetchingAdditionalItems, setIsFetchingAdditionalItems] =
 		useState(false);
@@ -35,21 +39,21 @@ export const useRocketsLaunchesQuery = (): HookResult => {
 		useRecoilState(rocketsLaunchesState);
 
 	useEffect(() => {
-		if (!data?.launchesPast) {
+		if (!launchesPast) {
 			return;
 		}
 		setIsFetchingAdditionalItems(false);
-		setRocketsLaunches(rocketsLaunchesSelector(data.launchesPast));
+		setRocketsLaunches(rocketsLaunchesSelector(launchesPast));
 
-		if (data?.launchesPast.length === 0) {
+		if (launchesPast.length === 0) {
 			setHasMoreToFetch(false);
 			return;
 		}
 
-		if (data.launchesPast) {
+		if (launchesPast) {
 			setHasMoreToFetch(true);
 		}
-	}, [data.launchesPast, setRocketsLaunches]);
+	}, [launchesPast, setRocketsLaunches]);
 
 	const fetchMoreItems = useCallback(() => {
 		if (!hasMoreToFetch) {

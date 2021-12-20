@@ -2,19 +2,19 @@ import type { RecoilValueReadOnly } from "recoil";
 import { atom, selector } from "recoil";
 import type { PastRocketsLaunches, RocketsLaunches } from "../types";
 
-export const rocketsLaunchesState = atom<RocketsLaunches | undefined>({
+export const rocketsLaunchesState = atom<RocketsLaunches>({
 	key: "rocketsLaunchesState",
 	default: { launchesPast: [] },
 });
 export const rocketsLaunchesSelector =
-	(newLaunches: PastRocketsLaunches[]) =>
+	(newLaunches = [] as PastRocketsLaunches[]) =>
 	({ launchesPast }: RocketsLaunches): RocketsLaunches => ({
 		launchesPast: [...launchesPast, ...newLaunches],
 	});
 
 export function rocketLaunchDetailState(
 	missionDetailId: string
-): RecoilValueReadOnly<PastRocketsLaunches> {
+): RecoilValueReadOnly<PastRocketsLaunches | undefined> {
 	return selector({
 		key: "rocketLaunchDetailState",
 		get: ({ get }) => {

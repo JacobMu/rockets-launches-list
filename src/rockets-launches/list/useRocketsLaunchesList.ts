@@ -1,21 +1,20 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { columnsState } from "../store/ColumnsAtom";
 import type { ColumnItem, ListItem } from "../types";
 import { getVisibleColumnItems } from "./RocketsLaunchesListService";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import type { IDetailsRowProps } from "@fluentui/react";
 import { useRocketsLaunchesQuery } from "../query-api/useRocketsLaunchesQuery";
 import type { CombinedError } from "urql";
 import { getLaunchesList } from "../RocketsLaunchesService";
-import { rocketsLaunchesState } from "../store/RocketsLaunchesAtom";
 
 interface HookResult {
 	columnItems: ColumnItem[];
 	launchesList: ListItem[];
 	isDialogVisible: boolean;
 	isFetchingAdditionalItems: boolean;
-	missionDetailId: string;
-	error: CombinedError;
+	missionDetailId?: string;
+	error?: CombinedError;
 	isFetching: boolean;
 
 	handleDismissClick(): void;
@@ -44,9 +43,9 @@ export const useRocketsLaunchesList = (): HookResult => {
 		setIsDialogVisible(true);
 	};
 	const handleDismissClick = (): void => setIsDialogVisible(false);
-	const handleScroll = useCallback(() => {
+	const handleScroll = (): void => {
 		fetchMoreItems();
-	}, [fetchMoreItems]);
+	};
 
 	return {
 		isFetching,
@@ -54,7 +53,7 @@ export const useRocketsLaunchesList = (): HookResult => {
 		error,
 		isDialogVisible,
 		missionDetailId,
-		launchesList: getLaunchesList(launches),
+		launchesList: getLaunchesList(launches) ?? [],
 		columnItems: getVisibleColumnItems(columnItems),
 		handleDismissClick,
 		handleDialogClick,

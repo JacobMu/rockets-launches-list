@@ -12,7 +12,6 @@ import { LazyLoadListDetail } from "../detail/LazyLoadListDetail";
 import { InfiniteScroller } from "../../components/infinite-scoller/InfiniteScroller";
 import { ErrorCard } from "../../components/error/ErrorCard";
 import * as React from "react";
-import { LogLevels } from "vite/dist/node/logger";
 
 export const RocketsLaunchesList: FC = () => {
 	const {
@@ -65,11 +64,13 @@ export const RocketsLaunchesList: FC = () => {
 					/>
 				)}
 			/>
-			<LazyLoadListDetail
-				isDialogOpen={isDialogVisible}
-				missionDetailId={missionDetailId}
-				onDismiss={handleDismissClick}
-			/>
+			{missionDetailId && (
+				<LazyLoadListDetail
+					isDialogOpen={isDialogVisible}
+					missionDetailId={missionDetailId}
+					onDismiss={handleDismissClick}
+				/>
+			)}
 		</InfiniteScroller>
 	);
 };
