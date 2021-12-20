@@ -1,0 +1,25 @@
+{
+  "app": {
+    "success": "\uD83D\uDC4D",
+    "fail": "\uD83D\uDC4E",
+    "list": {
+      "column": {
+        "missionName": "Nazov missie",
+        "rocketName": "Nazov rakety",
+        "launchDate": "Datum vzletu",
+        "success": "Uspech"
+      },
+      "sideBar": {
+        "title": "Vyberte si, ktore stlpce sa zobrazia"
+      }
+    },
+    "commandBar": {
+      "name": "Uzasna Spacex tabulka s raketami"
+    },
+    "language": {
+      "changeLanguage": "Zmente jazyk",
+      "skLang": "SK",
+      "enLang": "EN"
+    }
+  }
+}
