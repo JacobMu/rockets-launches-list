@@ -1,4 +1,3 @@
-import type { LegacyRef } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface HookParam {
@@ -6,15 +5,15 @@ interface HookParam {
 }
 
 interface HookResult {
-	nodeRef?: LegacyRef<HTMLDivElement>;
-	lastItemRef?: LegacyRef<HTMLDivElement>;
+	nodeRef: React.MutableRefObject<null | HTMLDivElement>;
+	lastItemRef: React.MutableRefObject<null | HTMLDivElement>;
 }
 
 export const useInfiniteScroller = ({ onScroll }: HookParam): HookResult => {
 	const [node, setNodeRef] = useState(undefined);
-	const nodeRef = useRef(undefined);
-	const observer = useRef(undefined);
-	const lastItemRef = useRef(undefined);
+	const nodeRef = useRef(null);
+	const observer = useRef<IntersectionObserver | undefined>();
+	const lastItemRef = useRef(null);
 
 	const handleChange = useCallback(
 		(entries: IntersectionObserverEntry[]) => {
@@ -42,9 +41,9 @@ export const useInfiniteScroller = ({ onScroll }: HookParam): HookResult => {
 
 	useEffect(() => {
 		if (lastItemRef.current) {
-			observer.current.observe(lastItemRef.current);
+			observer?.current?.observe(lastItemRef.current);
 		}
-		return (): void => observer.current.disconnect();
+		return (): void => observer?.current?.disconnect();
 	}, []);
 
 	return {

@@ -4,7 +4,7 @@ import { Spinner } from "@fluentui/react";
 import * as React from "react";
 
 interface Props {
-	hasLoadingItems: boolean;
+	isLoading: boolean;
 
 	onScroll?(): void;
 }
@@ -12,7 +12,7 @@ interface Props {
 export const InfiniteScroller: FC<Props> = ({
 	children,
 	onScroll,
-	hasLoadingItems,
+	isLoading,
 }) => {
 	const { nodeRef, lastItemRef } = useInfiniteScroller({
 		onScroll,
@@ -20,7 +20,7 @@ export const InfiniteScroller: FC<Props> = ({
 	return (
 		<div ref={nodeRef} id="infinite-scroller-wrapper">
 			{children}
-			{hasLoadingItems && (
+			{isLoading && (
 				<Spinner
 					label="app.loading"
 					styles={{ root: { marginTop: 15 } }}

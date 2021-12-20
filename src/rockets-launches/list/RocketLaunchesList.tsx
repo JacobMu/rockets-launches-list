@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import {
 	CheckboxVisibility,
 	DetailsList,
@@ -5,27 +6,23 @@ import {
 	MessageBarType,
 	Spinner,
 } from "@fluentui/react";
-import type { FC } from "react";
-import { useRocketsLaunchesList } from "./useRocketsLaunchesList";
 import { RocketsLaunchesListItem } from "./RocketsLaunchesListItem";
 import { LazyLoadListDetail } from "../detail/LazyLoadListDetail";
-import { InfiniteScroller } from "../../components/infinite-scoller/InfiniteScroller";
-import { ErrorCard } from "../../components/error/ErrorCard";
 import * as React from "react";
+import { useRocketLaunchesList } from "./useRocketLaunchesList";
+import { ErrorCard } from "../../components/error/ErrorCard";
 
-export const RocketsLaunchesList: FC = () => {
+export const RocketLaunchesList: FC = () => {
 	const {
-		launchesList,
-		error,
-		isFetching,
-		isFetchingAdditionalItems,
 		columnItems,
-		isDialogVisible,
-		missionDetailId,
+		launchesList,
 		handleDialogClick,
 		handleDismissClick,
-		handleScroll,
-	} = useRocketsLaunchesList();
+		missionDetailId,
+		isDialogVisible,
+		error,
+		isFetching,
+	} = useRocketLaunchesList();
 
 	if (isFetching) {
 		return <Spinner label="app.loading" />;
@@ -48,10 +45,7 @@ export const RocketsLaunchesList: FC = () => {
 	}
 
 	return (
-		<InfiniteScroller
-			onScroll={handleScroll}
-			hasLoadingItems={isFetchingAdditionalItems}
-		>
+		<>
 			<DetailsList
 				columns={columnItems}
 				items={launchesList}
@@ -71,6 +65,6 @@ export const RocketsLaunchesList: FC = () => {
 					onDismiss={handleDismissClick}
 				/>
 			)}
-		</InfiniteScroller>
+		</>
 	);
 };
